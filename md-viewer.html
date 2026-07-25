@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Markdown Viewer</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5/github-markdown.min.css">
+<style>
+  body{
+    margin:0;
+    background:#f6f8fa;
+  }
+  .wrap{
+    max-width:900px;
+    margin:0 auto;
+    padding:32px 20px 80px;
+  }
+  .back{
+    display:inline-block;
+    margin-bottom:16px;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:13px;
+    color:#57606a;
+    text-decoration:none;
+  }
+  .back:hover{ text-decoration:underline; }
+  .markdown-body{
+    box-sizing:border-box;
+    background:#fff;
+    border:1px solid #d0d7de;
+    border-radius:6px;
+    padding:32px 40px;
+  }
+  #status{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    color:#57606a;
+    padding:32px 40px;
+  }
+  @media (prefers-color-scheme: dark){
+    body{ background:#0d1117; }
+    .markdown-body{ background:#0d1117; border-color:#30363d; }
+    .back, #status{ color:#8b949e; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="#" onclick="history.back();return false;">&larr; Back</a>
+  <div id="status">Loading&hellip;</div>
+  <article class="markdown-body" id="content" style="display:none;"></article>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"></script>
+<script>
+(function(){
+  var params = new URLSearchParams(location.search);
+  var src = params.get('src') || '';
+  var statusEl = document.getElementById('status');
+  var contentEl = document.getElementById('content');
+
+  function fail(msg){
+    statusEl.textContent = msg;
+  }
+
+  if (!src){
+    fail('No file specified. Use md-viewer.html?src=path/to/file.md');
+    return;
+  }
+  // Only allow same-origin relative paths — no protocol-relative or absolute URLs.
+  if (/^[a-z]+:/i.test(src) || src.startsWith('//')){
+    fail('Invalid src parameter.');
+    return;
+  }
+
+  document.title = src.split('/').pop() + ' — Markdown Viewer';
+
+  fetch(src)
+    .then(function(res){
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.text();
+    })
+    .then(function(text){
+      var html = marked.parse(text, { gfm: true, breaks: false });
+      contentEl.innerHTML = DOMPurify.sanitize(html);
+      statusEl.style.display = 'none';
+      contentEl.style.display = 'block';
+    })
+    .catch(function(err){
+      fail('Could not load "' + src + '": ' + err.message);
+    });
+})();
+</script>
+</body>
+</html>
