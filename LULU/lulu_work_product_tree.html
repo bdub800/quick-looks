@@ -139,8 +139,18 @@
   .node--issue{border-left-color:var(--c-issue);}
   .node--issue .node__file{background:var(--c-issue);}
 
-  .node--issue-active{border-left-color:var(--c-issue-active);}
+  .node--issue-active{border-left-color:var(--c-issue-active);cursor:pointer;user-select:none;}
   .node--issue-active .node__file{background:var(--c-issue-active);}
+  .node--issue-active:hover{box-shadow:0 2px 4px rgba(20,20,40,.10), 0 8px 22px rgba(20,20,40,.10);transform:translateY(-1px);}
+  .node--issue-active .node__toggle{
+    display:block;
+    margin-top:6px;
+    font-size:10.5px;
+    font-weight:600;
+    color:var(--c-issue-active);
+  }
+
+  .subtree--hidden{display:none;}
 
   .node--theory{border-left-color:var(--c-theory);}
   .node--theory .node__file{background:var(--c-theory);}
@@ -185,9 +195,11 @@
   <h1>LULU Work-Product Tree</h1>
   <p>
     Map of how the files in <code>work_products/</code> connect, from the company down through the two overview
-    documents, into the seven tracked issues (<code>key_issues.json</code>), and — for Issue&nbsp;1, the only issue
-    developed further so far — down through its three competing theories, their validations, and their changelogs.
-    Each box names the source file and a one-line description of what's in it.
+    documents, into the six tracked issues (<code>key_issues.json</code>), and — for Issue&nbsp;1 (NA demand/brand)
+    and Issue&nbsp;2 (leadership transition), the two issues developed further so far — down through each one's three
+    competing theories, their validations, and their changelogs. Issue nodes outlined in orange are clickable: click
+    one to expand or collapse its theory subtree. Each box names the source file and a one-line description of
+    what's in it.
   </p>
 </header>
 
@@ -195,7 +207,7 @@
   <div class="item"><span class="swatch" style="background:var(--c-root)"></span>Company (root)</div>
   <div class="item"><span class="swatch" style="background:var(--c-doc)"></span>High-level overview docs</div>
   <div class="item"><span class="swatch" style="background:var(--c-issue)"></span>Key issues</div>
-  <div class="item"><span class="swatch" style="background:var(--c-issue-active)"></span>Issue with further work below it</div>
+  <div class="item"><span class="swatch" style="background:var(--c-issue-active)"></span>Issue with theories &mdash; click to expand/collapse</div>
   <div class="item"><span class="swatch" style="background:var(--c-theory)"></span>Theory (theories.md)</div>
   <div class="item"><span class="swatch" style="background:var(--c-validation)"></span>Theory validation</div>
   <div class="item"><span class="swatch" style="background:var(--c-changelog)"></span>Theory changelog</div>
@@ -250,45 +262,42 @@
 
       <!-- Row C: key issues -->
       <div class="row" id="row-issues">
-        <div class="node node--issue-active" id="n-issue1">
+        <div class="node node--issue-active" id="n-issue1" data-subtree="subtree-issue1" role="button" tabindex="0">
           <div class="node__file">key_issues.json &rarr; issue1</div>
-          <div class="node__title">Issue 1 &middot; NA Turnaround</div>
-          <div class="node__desc">North America turnaround is the central investment question.</div>
+          <div class="node__title">Issue 1 &middot; NA Demand &amp; Brand Execution</div>
+          <div class="node__desc">North America demand deterioration, driven by brand and product execution risk, is the central investment question.</div>
+          <div class="node__toggle">&#9662; click to expand</div>
         </div>
-        <div class="node node--issue" id="n-issue2">
+        <div class="node node--issue-active" id="n-issue2" data-subtree="subtree-issue2" role="button" tabindex="0">
           <div class="node__file">key_issues.json &rarr; issue2</div>
-          <div class="node__title">Issue 2 &middot; Brand Momentum</div>
-          <div class="node__desc">Brand momentum and product execution risk.</div>
+          <div class="node__title">Issue 2 &middot; Leadership Transition</div>
+          <div class="node__desc">Leadership transition execution risk.</div>
+          <div class="node__toggle">&#9662; click to expand</div>
         </div>
         <div class="node node--issue" id="n-issue3">
           <div class="node__file">key_issues.json &rarr; issue3</div>
-          <div class="node__title">Issue 3 &middot; Leadership</div>
-          <div class="node__desc">Leadership transition execution risk.</div>
+          <div class="node__title">Issue 3 &middot; Governance</div>
+          <div class="node__desc">Governance overhang, now partly resolved.</div>
         </div>
         <div class="node node--issue" id="n-issue4">
           <div class="node__file">key_issues.json &rarr; issue4</div>
-          <div class="node__title">Issue 4 &middot; Governance</div>
-          <div class="node__desc">Governance overhang, now partly resolved.</div>
+          <div class="node__title">Issue 4 &middot; Margins</div>
+          <div class="node__desc">Margin pressure from tariffs and fixed-cost deleverage.</div>
         </div>
         <div class="node node--issue" id="n-issue5">
           <div class="node__file">key_issues.json &rarr; issue5</div>
-          <div class="node__title">Issue 5 &middot; Margins</div>
-          <div class="node__desc">Margin pressure from tariffs and fixed-cost deleverage.</div>
+          <div class="node__title">Issue 5 &middot; China Growth</div>
+          <div class="node__desc">China Mainland is the clearest growth offset, but working off a smaller base.</div>
         </div>
         <div class="node node--issue" id="n-issue6">
           <div class="node__file">key_issues.json &rarr; issue6</div>
-          <div class="node__title">Issue 6 &middot; China Growth</div>
-          <div class="node__desc">China Mainland is the clearest growth offset, but working off a smaller base.</div>
-        </div>
-        <div class="node node--issue" id="n-issue7">
-          <div class="node__file">key_issues.json &rarr; issue7</div>
-          <div class="node__title">Issue 7 &middot; Litigation</div>
+          <div class="node__title">Issue 6 &middot; Litigation</div>
           <div class="node__desc">Unresolved securities litigation.</div>
         </div>
       </div>
 
       <!-- Subtree hanging off Issue 1: theories -> validations -> changelogs -->
-      <div class="subtree" id="subtree-issue1">
+      <div class="subtree subtree--hidden" id="subtree-issue1">
 
         <div class="row" id="row-theories">
           <a class="node-link" href="work_products/issue1/theories.pdf" target="_blank" rel="noopener">
@@ -364,45 +373,181 @@
 
       </div><!-- /subtree-issue1 -->
 
+      <!-- Subtree hanging off Issue 2: theories -> validations -> changelogs -->
+      <div class="subtree subtree--hidden" id="subtree-issue2">
+
+        <div class="row" id="row-issue2-theories">
+          <a class="node-link" href="work_products/issue2/theories.pdf" target="_blank" rel="noopener">
+          <div class="node node--theory" id="n-i2-theory1">
+            <div class="node__file">issue2/theories &rarr; Theory 1</div>
+            <div class="node__title">Theory 1: Clean handoff</div>
+            <div class="node__desc">Interim co-CEO period and O&rsquo;Neill&rsquo;s arrival execute smoothly with no material disruption; the market&rsquo;s transition-risk discount unwinds once she starts.</div>
+          </div>
+          </a>
+          <a class="node-link" href="work_products/issue2/theories.pdf" target="_blank" rel="noopener">
+          <div class="node node--theory" id="n-i2-theory2">
+            <div class="node__file">issue2/theories &rarr; Theory 2</div>
+            <div class="node__title">Theory 2: Extended leadership vacuum</div>
+            <div class="node__desc">Seven-plus-month dual-interim structure creates real organizational drag &mdash; ambiguous accountability, paused decisions, elevated flight risk &mdash; independent of what O&rsquo;Neill does.</div>
+          </div>
+          </a>
+          <a class="node-link" href="work_products/issue2/theories.pdf" target="_blank" rel="noopener">
+          <div class="node node--theory" id="n-i2-theory3">
+            <div class="node__file">issue2/theories &rarr; Theory 3</div>
+            <div class="node__title">Theory 3: Deliberate strategic reset</div>
+            <div class="node__desc">Board&rsquo;s outside hire signals a change-agent mandate; O&rsquo;Neill uses her first year for visible, disruptive changes &mdash; messier near-term, larger re-rating if it works.</div>
+          </div>
+          </a>
+        </div>
+
+        <div class="row" id="row-issue2-validations">
+          <a class="node-link" href="work_products/issue2/theory1_validation.pdf" target="_blank" rel="noopener">
+          <div class="node node--validation" id="n-i2-theory1-validation">
+            <div class="node__file">issue2/theory1_validation</div>
+            <div class="node__title">Validation &middot; 20% probability</div>
+            <div class="node__desc">Interim execution genuinely competent, but the market fell 12&ndash;13% on the CEO news itself, Elliott&rsquo;s $1B+ stake remains unresolved, and the inherited bench is thinner than McDonald&rsquo;s 2018 handoff.</div>
+          </div>
+          </a>
+          <a class="node-link" href="work_products/issue2/theory2_validation.pdf" target="_blank" rel="noopener">
+          <div class="node node--validation" id="n-i2-theory2-validation">
+            <div class="node__file">issue2/theory2_validation</div>
+            <div class="node__title">Validation &middot; 35% probability</div>
+            <div class="node__desc">Proxy-contest SG&amp;A drag (+310bps) is real and quantified, and base rates favor disruption, but &ldquo;paused decisions&rdquo; and &ldquo;flight risk&rdquo; aren&rsquo;t yet observed &mdash; Frank/Maestrini are staying.</div>
+          </div>
+          </a>
+          <a class="node-link" href="work_products/issue2/theory3_validation.pdf" target="_blank" rel="noopener">
+          <div class="node node--validation" id="n-i2-theory3-validation">
+            <div class="node__file">issue2/theory3_validation</div>
+            <div class="node__title">Validation &middot; 20% probability</div>
+            <div class="node__desc">A reset is likely mechanically (Power of Three &times;2 expires, Elliott pressure), but the board picked conventional directors over Wilson&rsquo;s disruptive slate, and O&rsquo;Neill&rsquo;s Nike precedent was reversed by her successor.</div>
+          </div>
+          </a>
+        </div>
+
+        <div class="row" id="row-issue2-changelogs">
+          <a class="node-link" href="work_products/issue2/theory1_changelog.pdf" target="_blank" rel="noopener">
+          <div class="node node--changelog" id="n-i2-theory1-changelog">
+            <div class="node__file">issue2/theory1_changelog</div>
+            <div class="node__title">Changelog &middot; Rev. 1 (2026-07-28)</div>
+            <div class="node__desc">Revised to &ldquo;Competent interim stewardship, but unresolved Elliott activist risk and a negative market verdict on the pick itself&rdquo; &mdash; narrows the &ldquo;clean handoff&rdquo; claim.</div>
+          </div>
+          </a>
+          <a class="node-link" href="work_products/issue2/theory2_changelog.pdf" target="_blank" rel="noopener">
+          <div class="node node--changelog" id="n-i2-theory2-changelog">
+            <div class="node__file">issue2/theory2_changelog</div>
+            <div class="node__title">Changelog &middot; Rev. 1 (2026-07-28)</div>
+            <div class="node__desc">Revised to &ldquo;Real quantifiable cost inside an unfavorable base rate, but the paralysis/flight-risk mechanism is not yet observed&rdquo; &mdash; confirms cost, undercuts dysfunction claims.</div>
+          </div>
+          </a>
+          <a class="node-link" href="work_products/issue2/theory3_changelog.pdf" target="_blank" rel="noopener">
+          <div class="node node--changelog" id="n-i2-theory3-changelog">
+            <div class="node__file">issue2/theory3_changelog</div>
+            <div class="node__title">Changelog &middot; Rev. 1 (2026-07-28)</div>
+            <div class="node__desc">Revised to &ldquo;Reset likely for mechanical/external reasons, not a deliberate change-agent mandate &mdash; value-accretive outcome unsupported by O&rsquo;Neill&rsquo;s own precedent.&rdquo;</div>
+          </div>
+          </a>
+        </div>
+
+      </div><!-- /subtree-issue2 -->
+
     </div><!-- /nodes -->
   </div><!-- /tree-container -->
 </div><!-- /scroller -->
 
 <script>
+// Each entry describes one issue's collapsible theory subtree.
+const SUBTREES = [
+  {
+    issueId: 'n-issue1',
+    subtreeId: 'subtree-issue1',
+    firstChildId: 'n-theory1',
+    theories: [
+      { theory: 'n-theory1', validation: 'n-theory1-validation', changelog: 'n-theory1-changelog' },
+      { theory: 'n-theory2', validation: 'n-theory2-validation', changelog: 'n-theory2-changelog' },
+      { theory: 'n-theory3', validation: 'n-theory3-validation', changelog: 'n-theory3-changelog' },
+    ],
+  },
+  {
+    issueId: 'n-issue2',
+    subtreeId: 'subtree-issue2',
+    firstChildId: 'n-i2-theory1',
+    theories: [
+      { theory: 'n-i2-theory1', validation: 'n-i2-theory1-validation', changelog: 'n-i2-theory1-changelog' },
+      { theory: 'n-i2-theory2', validation: 'n-i2-theory2-validation', changelog: 'n-i2-theory2-changelog' },
+      { theory: 'n-i2-theory3', validation: 'n-i2-theory3-validation', changelog: 'n-i2-theory3-changelog' },
+    ],
+  },
+];
+
+let activeSubtreeId = null;
+
+function setSubtreeOpen(cfg, open){
+  const el = document.getElementById(cfg.subtreeId);
+  const issueEl = document.getElementById(cfg.issueId);
+  const toggleEl = issueEl.querySelector('.node__toggle');
+  el.classList.toggle('subtree--hidden', !open);
+  if (toggleEl){
+    toggleEl.innerHTML = open ? '&#9652; click to collapse' : '&#9662; click to expand';
+  }
+}
+
+function toggleSubtree(cfg){
+  if (activeSubtreeId === cfg.subtreeId){
+    setSubtreeOpen(cfg, false);
+    activeSubtreeId = null;
+  } else {
+    SUBTREES.forEach(other => { if (other !== cfg) setSubtreeOpen(other, false); });
+    setSubtreeOpen(cfg, true);
+    activeSubtreeId = cfg.subtreeId;
+  }
+  layoutAndDraw();
+}
+
+SUBTREES.forEach(cfg => {
+  const issueEl = document.getElementById(cfg.issueId);
+  issueEl.addEventListener('click', () => toggleSubtree(cfg));
+  issueEl.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggleSubtree(cfg); }
+  });
+});
+
 function layoutAndDraw(){
   const container = document.getElementById('tree-container');
   const svg = document.getElementById('connectors');
   const cRect = container.getBoundingClientRect();
 
-  // Ensure the subtree sits low enough to clear the (taller) issues row,
-  // then horizontally align it so its first column sits under Issue 1.
   const rowIssues = document.getElementById('row-issues');
-  const rowDocs = document.getElementById('row-docs');
-  const rowCompany = document.getElementById('row-company');
-  const subtree = document.getElementById('subtree-issue1');
-  const issue1 = document.getElementById('n-issue1');
-
   const issuesBottom = rowIssues.getBoundingClientRect().bottom - cRect.top;
-  subtree.style.position = 'absolute';
-  subtree.style.top = (issuesBottom + 70) + 'px';
-  subtree.style.left = '0px';
-  subtree.style.transform = 'none';
 
-  // center subtree's first column under issue1
-  const issue1Rect = issue1.getBoundingClientRect();
-  const theory1 = document.getElementById('n-theory1');
-  const theory1Rect = theory1.getBoundingClientRect();
-  const issue1CenterX = issue1Rect.left + issue1Rect.width/2 - cRect.left;
-  const theory1CenterX = theory1Rect.left + theory1Rect.width/2 - cRect.left;
-  const shift = issue1CenterX - theory1CenterX;
-  subtree.style.transform = 'translateX(' + shift + 'px)';
+  let maxSubtreeBottom = 0;
 
-  // container must be tall enough to contain the shifted subtree
-  const subtreeRect = subtree.getBoundingClientRect();
-  const neededHeight = (subtreeRect.bottom - cRect.top) + 20;
-  if (neededHeight > container.offsetHeight){
-    container.style.height = neededHeight + 'px';
-  }
+  // Position each open subtree low enough to clear the issues row, and
+  // horizontally align it so its first column sits under its issue node.
+  SUBTREES.forEach(cfg => {
+    const subtree = document.getElementById(cfg.subtreeId);
+    if (subtree.classList.contains('subtree--hidden')) return;
+
+    const issueEl = document.getElementById(cfg.issueId);
+    subtree.style.position = 'absolute';
+    subtree.style.top = (issuesBottom + 70) + 'px';
+    subtree.style.left = '0px';
+    subtree.style.transform = 'none';
+
+    const issueRect = issueEl.getBoundingClientRect();
+    const firstChild = document.getElementById(cfg.firstChildId);
+    const firstChildRect = firstChild.getBoundingClientRect();
+    const issueCenterX = issueRect.left + issueRect.width/2 - cRect.left;
+    const firstChildCenterX = firstChildRect.left + firstChildRect.width/2 - cRect.left;
+    const shift = issueCenterX - firstChildCenterX;
+    subtree.style.transform = 'translateX(' + shift + 'px)';
+
+    const subtreeRect = subtree.getBoundingClientRect();
+    maxSubtreeBottom = Math.max(maxSubtreeBottom, subtreeRect.bottom - cRect.top);
+  });
+
+  // container must be tall enough to contain whichever subtree is open (if any)
+  const neededHeight = maxSubtreeBottom > 0 ? (maxSubtreeBottom + 20) : (issuesBottom + 40);
+  container.style.height = neededHeight + 'px';
 
   // --- draw connectors ---
   const cRect2 = container.getBoundingClientRect(); // re-measure after height set
@@ -450,14 +595,18 @@ function layoutAndDraw(){
   }
 
   drawBus(['n-company'], ['n-financials','n-overview','n-knowledge-store','n-fetched-docs'], '#8b93a0');
-  drawBus(['n-financials','n-overview'], ['n-issue1','n-issue2','n-issue3','n-issue4','n-issue5','n-issue6','n-issue7'], '#8b93a0');
-  drawBus(['n-issue1'], ['n-theory1','n-theory2','n-theory3'], '#c76b1f');
-  drawBus(['n-theory1'], ['n-theory1-validation'], '#1f8a5f');
-  drawBus(['n-theory2'], ['n-theory2-validation'], '#1f8a5f');
-  drawBus(['n-theory3'], ['n-theory3-validation'], '#1f8a5f');
-  drawBus(['n-theory1-validation'], ['n-theory1-changelog'], '#0f9aa4');
-  drawBus(['n-theory2-validation'], ['n-theory2-changelog'], '#0f9aa4');
-  drawBus(['n-theory3-validation'], ['n-theory3-changelog'], '#0f9aa4');
+  drawBus(['n-financials','n-overview'], ['n-issue1','n-issue2','n-issue3','n-issue4','n-issue5','n-issue6'], '#8b93a0');
+
+  SUBTREES.forEach(cfg => {
+    const subtree = document.getElementById(cfg.subtreeId);
+    if (subtree.classList.contains('subtree--hidden')) return;
+
+    drawBus([cfg.issueId], cfg.theories.map(t => t.theory), '#c76b1f');
+    cfg.theories.forEach(t => {
+      drawBus([t.theory], [t.validation], '#1f8a5f');
+      drawBus([t.validation], [t.changelog], '#0f9aa4');
+    });
+  });
 }
 
 window.addEventListener('load', layoutAndDraw);
